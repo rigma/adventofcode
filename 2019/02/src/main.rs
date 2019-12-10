@@ -33,51 +33,65 @@ fn mul(program: &mut [u32], intcode: (usize, usize, usize, usize)) {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
-    let program = fs::read_to_string(get_input_path())?;
-    let program: Vec<&str> = program.split(',').collect();
+    let input = fs::read_to_string(get_input_path())?;
+    let input: Vec<&str> = input.split(',').collect();
 
-    let mut program: Vec<u32> = program
-        .iter()
-        .map(|code| code.parse::<u32>().unwrap())
-        .collect();
-
-    let mut i = 0;
+    let mut noun = 0;
+    let mut verb = 0;
     loop {
-        let intcode: (usize, usize, usize, usize) = (
-            if let Some(a) = program.get(i) {
-                *a as usize
-            } else {
-                panic!("Invalid index")
-            },
-            if let Some(b) = program.get(i + 1) {
-                *b as usize
-            } else {
-                panic!("Invalid index")
-            },
-            if let Some(c) = program.get(i + 2) {
-                *c as usize
-            } else {
-                panic!("Invalid index")
-            },
-            if let Some(d) = program.get(i + 3) {
-                *d as usize
-            } else {
-                panic!("Invalid index")
-            },
-        );
+        let mut program: Vec<u32> = input.iter()
+            .map(|code| code.parse::<u32>().unwrap())
+            .collect();
 
-        match intcode.0 {
-            1 => add(&mut program, intcode),
-            2 => mul(&mut program, intcode),
-            99 => break,
-            _ => panic!("Unknown opcode found!"),
-        };
-        i += 4;
+        program[1] = noun;
+        program[2] = verb;
+
+        let mut i = 0;
+        loop {
+            let intcode: (usize, usize, usize, usize) = (
+                if let Some(a) = program.get(i) {
+                    *a as usize
+                } else {
+                    panic!("Invalid index")
+                },
+                if let Some(b) = program.get(i + 1) {
+                    *b as usize
+                } else {
+                    panic!("Invalid index")
+                },
+                if let Some(c) = program.get(i + 2) {
+                    *c as usize
+                } else {
+                    panic!("Invalid index")
+                },
+                if let Some(d) = program.get(i + 3) {
+                    *d as usize
+                } else {
+                    panic!("Invalid index")
+                },
+            );
+    
+            match intcode.0 {
+                1 => add(&mut program, intcode),
+                2 => mul(&mut program, intcode),
+                99 => break,
+                _ => panic!("Unknown opcode found!"),
+            };
+            i += 4;
+        }
+
+        if program[0] == 19690720 {
+            break;
+        } else {
+            verb += 1;
+            if verb >= 100 {
+                noun += 1;
+                verb = 0;
+            }
+        }
     }
 
-    for code in program {
-        print!("{},", code);
-    }
+    println!("Noun and verb: {}", 100 * noun + verb);
 
     Ok(())
 }
