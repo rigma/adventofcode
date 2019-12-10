@@ -34,7 +34,16 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
         .map(|&mass| {
             let mass: f64 = mass.parse::<f64>().unwrap();
 
-            (mass / 3.).floor() - 2.
+            let mut mass: f64 = (mass / 3.).floor();
+            let mut required_fuel = 0.;
+
+            while mass >= 2. {
+                mass -= 2.;
+                required_fuel += mass;
+                mass = (mass / 3.).floor();
+            }
+
+            required_fuel
         })
         .sum();
 
