@@ -29,6 +29,7 @@ fuel needed for the mass of each module, then add together all the fuel values.
 **What is the sum of the fuel requirements for all of the modules on your spacecraft?**
 
 [Link to the challenge](https://adventofcode.com/2019/day/1)
+[Version of the solution](https://github.com/rigma/adventofcode/tree/3c8e361c97cde1d0c3725b19cdd9fe4d2936dc6f)
 
 ## Part 2
 
@@ -54,6 +55,7 @@ So, the total fuel required for a module of mass `1969` is `654 + 216 + 70 + 21 
 the mass of the added fuel? (Calculate the fuel requirements for each module separately, then add them all up at the end.)
 
 [Link to the challenge](https://adventofcode.com/2019/day/1#part2)
+[Version to the solution](https://github.com/rigma/adventofcode/tree/7b79b8b1a21651cde2509a11500cb01386c13e7d)
 
 # Implementation
 
