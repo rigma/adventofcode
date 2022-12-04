@@ -1,14 +1,43 @@
 use std::{
-    env, fs,
+    env,
+    fs::File,
     io::{self, BufRead, BufReader},
 };
 
 fn main() -> io::Result<()> {
-    let args: Vec<String> = env::args().collect();
-    let file = fs::File::open(&args[1])?;
-    let file = BufReader::new(file);
+    let file = env::args().nth(1).expect("an input file is required");
 
-    let total_score: i32 = file
+    first_part(File::open(&file)?);
+    second_part(File::open(&file)?);
+    Ok(())
+}
+
+fn first_part(file: File) {
+    let buf_reader = BufReader::new(file);
+
+    let total_score: u32 = buf_reader
+        .lines()
+        .map(|line| match &line.expect("unparsable strategy line")[..] {
+            "A X" => 4,
+            "A Y" => 8,
+            "A Z" => 3,
+            "B X" => 1,
+            "B Y" => 5,
+            "B Z" => 9,
+            "C X" => 7,
+            "C Y" => 2,
+            "C Z" => 6,
+            _ => 0,
+        })
+        .sum();
+
+    println!("Naive strategy total score: {}", total_score);
+}
+
+fn second_part(file: File) {
+    let buf_reader = BufReader::new(file);
+
+    let total_score: u32 = buf_reader
         .lines()
         .map(|line| match &line.unwrap()[..] {
             "A X" => 3,
@@ -24,6 +53,5 @@ fn main() -> io::Result<()> {
         })
         .sum();
 
-    println!("Total score: {}", total_score);
-    Ok(())
+    println!("Smart Elve strategy © total score: {}", total_score);
 }
