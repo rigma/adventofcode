@@ -1,0 +1,11 @@
+[package]
+name = "aoc2023-utils"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+publish.workspace = true
+
+[lib]
+name = "aoc2023_utils"
+
+[dependencies]
