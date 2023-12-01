@@ -6,4 +6,5 @@ authors.workspace = true
 publish.workspace = true
 
 [dependencies]
-lazy_static = "*"
+aoc2023-utils = { path = "../../utils" }
+lazy_static.workspace = true

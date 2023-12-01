@@ -1,12 +1,8 @@
 #[macro_use]
 extern crate lazy_static;
 
-use std::{
-    collections::HashMap,
-    env,
-    fs::File,
-    io::{self, Read},
-};
+use aoc2023_utils::read_input;
+use std::{collections::HashMap, io};
 
 lazy_static! {
     static ref PATTERNS: HashMap<&'static str, &'static str> = {
@@ -58,11 +54,7 @@ fn decode_line(line: &str) -> String {
 }
 
 fn main() -> io::Result<()> {
-    let path = env::args().nth(1).unwrap_or("./input.txt".to_owned());
-    let mut file = File::open(path)?;
-    let mut input = String::new();
-    file.read_to_string(&mut input)?;
-
+    let input = read_input()?;
     let mut sum = 0;
 
     for line in input.lines() {
@@ -73,9 +65,7 @@ fn main() -> io::Result<()> {
             .map(|c| c.to_digit(10).unwrap())
             .collect();
 
-        let calibration_value = 10 * digits.first().unwrap() + digits.last().unwrap();
-        println!("{} => {} => {}", line, decoded_line, calibration_value);
-        sum += calibration_value;
+        sum += 10 * digits.first().unwrap() + digits.last().unwrap();
     }
 
     println!("{}", sum);

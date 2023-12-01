@@ -1,5 +1,8 @@
-fn main() {
-    let input = include_str!("../../input.txt");
+use aoc2023_utils::read_input;
+use std::io;
+
+fn main() -> io::Result<()> {
+    let input = read_input()?;
     let mut sum = 0;
 
     for line in input.lines() {
@@ -13,4 +16,5 @@ fn main() {
     }
 
     println!("{}", sum);
+    Ok(())
 }
