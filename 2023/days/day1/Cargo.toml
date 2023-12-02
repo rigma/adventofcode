@@ -5,6 +5,14 @@ edition.workspace = true
 authors.workspace = true
 publish.workspace = true
 
+[[bin]]
+name = "day1-part1"
+path = "src/bin/part1.rs"
+
+[[bin]]
+name = "day1-part2"
+path = "src/bin/part2.rs"
+
 [dependencies]
 aoc2023-utils = { path = "../../utils" }
 lazy_static.workspace = true
