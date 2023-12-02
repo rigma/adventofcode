@@ -6,3 +6,4 @@ authors.workspace = true
 publish.workspace = true
 
 [dependencies]
+aoc2023-utils = { path = "../../utils" }
